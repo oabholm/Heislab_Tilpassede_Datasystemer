@@ -21,3 +21,5 @@ void checkStop(int floor);
 void openDoor();
 
 void stopButton(int floor);
+
+void Obstruction();

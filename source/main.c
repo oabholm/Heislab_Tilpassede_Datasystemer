@@ -32,12 +32,12 @@ int main(){
 
 
         
-        if(elevio_obstruction()){
-            elevio_stopLamp(1);
-        } else {
-            elevio_stopLamp(0);
-        }
-        
+        // if(elevio_obstruction()) {
+        //     obstruction();
+        // }
+
+
+
         if(elevio_stopButton()){
             stopButton(floor);
         }

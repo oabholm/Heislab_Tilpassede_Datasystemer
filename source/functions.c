@@ -42,9 +42,11 @@ void addOrder(int floor, int button) {
 void removeOrder(int floor) {
     if(floor == 0) {
         orders[floor][0] = 0;
+        orders[floor][1] = 0;
         elevio_buttonLamp(floor, 0, 0);
     } else if(floor == 3) {
         orders[floor][1] = 0;
+        orders[floor][0] = 0;
         elevio_buttonLamp(floor, 1, 0);
 
     } else {
@@ -97,9 +99,13 @@ void checkStop(int floor) {
 void openDoor() {
     elevio_doorOpenLamp(1);
 
+
     time_t start = time(NULL);
 
     while (time(NULL) - start < 3) {
+        if(elevio_obstruction()) {
+            break;
+        }
         for(int f = 0; f < N_FLOORS; f++){
             for(int b = 0; b < N_BUTTONS; b++){
                 if (elevio_callButton(f,b)) {
@@ -108,7 +114,15 @@ void openDoor() {
             }
         }
     }
+    Obstruction();
     elevio_doorOpenLamp(0);
+}
+
+void Obstruction() {
+    if (elevio_obstruction()) {
+    while (elevio_obstruction()) {}
+    openDoor();
+    }
 }
 
 
@@ -139,10 +153,12 @@ void stopButton(int floor) {
                     elevio_stopLamp(1);
                  }
                  openDoor();
+                 elevio_stopLamp(0);
              } else{
                 while(elevio_stopButton()){
                     elevio_stopLamp(1);
                 }
+                elevio_stopLamp(0);
                 initialize();
              }
 }
