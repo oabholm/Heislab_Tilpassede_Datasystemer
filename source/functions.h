@@ -19,3 +19,5 @@ void moveElevator(int floor);
 void checkStop(int floor);
 
 void openDoor();
+
+void stopButton(int floor);
