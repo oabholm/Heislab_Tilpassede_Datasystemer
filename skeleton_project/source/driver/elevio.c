@@ -30,6 +30,7 @@ void elevio_init(void){
         .ai_socktype    = SOCK_STREAM, 
         .ai_protocol    = IPPROTO_TCP,
     };
+    
     struct addrinfo* res;
     getaddrinfo(ip, port, &hints, &res);
     
@@ -40,8 +41,6 @@ void elevio_init(void){
     
     send(sockfd, (char[4]){0}, 4, 0);
 }
-
-
 
 
 void elevio_motorDirection(MotorDirection dirn){
